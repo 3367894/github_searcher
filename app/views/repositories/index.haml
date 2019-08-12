@@ -1,0 +1,28 @@
+%form{ method: :get}
+  %label{for: 'q'} Name:
+  %input{type: :text, name: 'q', class: :text, value: params[:q] }
+
+  %input{type: :submit, value: 'Search', class: 'button'}
+
+.total-count
+  = "Total count: #{@repositories_getter.total_count}"
+
+- if @repositories_getter.total_count > 0
+  %table
+    %thead
+      %th= 'Full name'
+      %th= 'Description'
+      %th= 'Link'
+    %tbody
+      - @repositories_getter.list.each do |item|
+        %tr
+          %td= item.full_name
+          %td= item.description
+          %td
+            %a{ href: item.html_url }= item.html_url
+
+.pages
+  - if @repositories_getter.current_page > 1
+    %a{ href: prev_page_href}= 'Prev'
+  - if @repositories_getter.current_page < @repositories_getter.total_pages
+    %a{ href: next_page_href}= 'Next'

@@ -5,4 +5,5 @@ Bundler.require(:default, ENV['SINATRA_ENV'])
 
 
 require './app/controllers/application_controller'
+require_all 'lib'
 require_all 'app'
